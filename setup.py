@@ -14,17 +14,17 @@ extras = {
 }
 
 setuptools.setup(
-    name="python-package-template",
+    name="frog-of-the-week",
     version="0.0.0",
     author="Ruben Lipperts",
     author_email="",
-    description="Write a short description of the package",
+    description="Discord bot that chooses a frog every week and posts about it",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/rlipperts/python_package_template",
+    url="https://github.com/rlipperts/frog-of-the-week",
     package_dir={'': 'src'},
-    packages=['package_name'],
-    package_data={'package_name': ['py.typed']},
+    packages=['mfp_discord_bot'],
+    package_data={'mfp_discord_bot': ['py.typed']},
     tests_require=test_deps,
     extras_require=extras,
     install_requires=[

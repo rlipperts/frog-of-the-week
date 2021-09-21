@@ -1,5 +1,6 @@
-# python_package_template
-_Default files and structure for python package repositories (aimed at personal use)_
+# Frog of the week discord bot
+_Discord bot to choose a random frog and display information about it once every week. Text is in 
+german as this is based on a german meme._
 
 ## installation
 There are no PyPI releases. Neither are they planned.
@@ -10,15 +11,8 @@ For installation with pip directly from this GitHub repository simply open a ter
 pip install git+ssh://git@github.com/rlipperts/python_package_template.git
 ```
 
-### setup.py
-To automatically install the logging configurator with your python package include these lines in your setup.py
-```python
-install_requires = [
-    'python-package-template @ git+ssh://git@github.com/rlipperts/formatter.git@master#egg=python-package-template-0.0.2',
-],
-```
-Make sure you update the version in the `egg=python-package-template-...` portion to the correct version specified in the logging-configurators setup.py. This might not work if you plan on publishing your package on PyPI.
-
 ## usage
 
-Write a more or less detailed description on how to use your package.
+To use the bot you have to host it on a server and then add it ot your Discord server.
+
+TODO
