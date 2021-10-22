@@ -48,15 +48,20 @@ def translate_to_german(text: str) -> str:
 def german_common_name_from_data(data: dict) -> str:
     names = data.get('vernacularNames', None)
     if names:
+        print('found a name for this frog, translating it')
         name = names[0]['vernacularName']
-        try:
-            return translate_to_german(name)
-        except KeyError:
-            pass
+        return translate_to_german(name)
     return ''
 
 
 def frog_image_url(query: str) -> str:
+    # this returns wrong images for whatever reason
+    # try:
+    #     wikipedia.set_lang('en')
+    #     page = wikipedia.page(query, auto_suggest=False)
+    #     return page.images.pop(0)
+    # except (wikipedia.exceptions.PageError, wikipedia.exceptions.DisambiguationError, IndexError):
+    #     pass
     try:
         gis = GoogleImagesSearch(keys['google_api_key'], keys['google_search_engine_id'])
         params = {
