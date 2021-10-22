@@ -2,3 +2,4 @@ discord
 wikipedia
 google-images-search
 deepl
+requests

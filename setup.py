@@ -23,8 +23,8 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/rlipperts/frog-of-the-week",
     package_dir={'': 'src'},
-    packages=['mfp_discord_bot'],
-    package_data={'mfp_discord_bot': ['py.typed']},
+    packages=['frog_of_the_week'],
+    package_data={'frog_of_the_week': ['py.typed']},
     tests_require=test_deps,
     extras_require=extras,
     install_requires=[

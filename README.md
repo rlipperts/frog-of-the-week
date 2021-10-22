@@ -1,6 +1,6 @@
 # Frog of the week discord bot
-_Discord bot to choose a random frog and display information about it once every week. Text is in 
-german as this is based on a german meme._
+_Discord bot to choose a random frog and display information about it once every week. Information 
+is german as this is based on a german meme._
 
 ## installation
 There are no PyPI releases. Neither are they planned.
