@@ -2,7 +2,7 @@ name: typecheck
 on:
   push:
     branches:
-      - master
+      - none
     paths:
       - 'src/**'
       - '.github/workflows/**'

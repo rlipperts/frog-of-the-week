@@ -55,8 +55,8 @@ def test_image_search_returns_image_url():
     """
     image_formats = ("image/png", "image/jpeg", "image/jpg")
     url = data_service.frog_image_url('Bread')
-    r = requests.head(url)
-    assert r.headers["content-type"] in image_formats
+    response = requests.head(url)
+    assert response.headers["content-type"] in image_formats
 
 
 def test_wikipedia_summary():

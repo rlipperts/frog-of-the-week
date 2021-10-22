@@ -3,12 +3,12 @@ Module that provides data by interfacing various APIs.
 This should probably be separated into a module for each low level API function and another one for
 the higher-level data interface used by the bot.
 """
+import json
 from pathlib import Path
 
 import random
 import requests
 import wikipedia
-import json
 from google_images_search import GoogleImagesSearch
 from deepl import Translator
 
@@ -16,20 +16,34 @@ from frog_of_the_week.exceptions import MissingApiKeyError
 
 
 def load_keys(path: Path):
-    with open(path, mode='r') as file:
+    """
+    Loads authentification keys/tokens.
+    :param path: JSON file to load the keys from
+    :return: Dictionary containing the key-file information
+    """
+    with open(path, mode='r', encoding='utf8') as file:
         return json.load(file)
 
 
-keys = load_keys(Path('data/keys.json'))
-get_a_frog_api_call = \
+KEYS = load_keys(Path('data/keys.json'))
+GET_A_FROG_API_CALL = \
     'https://api.gbif.org/v1/species/search/?highertaxon_key=952&limit=1&rank=SPECIES&offset='
 
 
 def get_frog_for_number(number: int):
-    return requests.get(get_a_frog_api_call + str(number)).json()
+    """
+    Returns frog data from the GBIF species API.
+    :param number: Number of the species to query the API with
+    :return: Data package received
+    """
+    return requests.get(GET_A_FROG_API_CALL + str(number)).json()
 
 
 def random_frog():
+    """
+    Returns frog data from the GBIF species API for a random frog species.
+    :return: Data package received
+    """
     number_of_frogs = get_frog_for_number(0)['count']
     number_to_draw = random.randint(0, number_of_frogs - 1)
     chosen_frog = get_frog_for_number(number_to_draw)
@@ -37,15 +51,25 @@ def random_frog():
 
 
 def translate_to_german(text: str) -> str:
+    """
+    Translates text to german using the Deepl API.
+    :param text: String to translate
+    :return: Translated text
+    """
     try:
-        translator = Translator(keys['deepl_auth_key'])
+        translator = Translator(KEYS['deepl_auth_key'])
         translated = translator.translate_text(text, target_lang="DE")
         return translated.text
-    except KeyError as e:
-        raise MissingApiKeyError('Missing Deepl API Key!') from e
+    except KeyError as error:
+        raise MissingApiKeyError('Missing Deepl API Key!') from error
 
 
 def german_common_name_from_data(data: dict) -> str:
+    """
+    Tries to find a common german species name.
+    :param data: Data package containing species information
+    :return: German common species name
+    """
     names = data.get('vernacularNames', None)
     if names:
         print('found a name for this frog, translating it')
@@ -55,6 +79,11 @@ def german_common_name_from_data(data: dict) -> str:
 
 
 def frog_image_url(query: str) -> str:
+    """
+    Queries the google image search to get an image for the desired search term.
+    :param query: Search term to use
+    :return: Url of first image found
+    """
     # this returns wrong images for whatever reason
     # try:
     #     wikipedia.set_lang('en')
@@ -63,7 +92,7 @@ def frog_image_url(query: str) -> str:
     # except (wikipedia.exceptions.PageError, wikipedia.exceptions.DisambiguationError, IndexError):
     #     pass
     try:
-        gis = GoogleImagesSearch(keys['google_api_key'], keys['google_search_engine_id'])
+        gis = GoogleImagesSearch(KEYS['google_api_key'], KEYS['google_search_engine_id'])
         params = {
             'q': '\"' + query + '\"',
             'num': 1,
@@ -71,12 +100,18 @@ def frog_image_url(query: str) -> str:
         }
         gis.search(search_params=params)
         return next(iter(gis.results())).url
-    except KeyError as e:
+    except KeyError as error:
         raise MissingApiKeyError(
-            'Could not find required google API key or search engine id') from e
+            'Could not find required google API key or search engine id') from error
 
 
-def wikipedia_summary(query: str, lang: str = 'en'):
+def wikipedia_summary(query: str, lang: str = 'en') -> str:
+    """
+    Searches wikipedia for a summary of given search term.
+    :param query: Search term
+    :param lang: Language of wikipedia pages to search
+    :return: Summary string (empty if nothing found)
+    """
     try:
         wikipedia.set_lang(lang)
         return wikipedia.summary(query, auto_suggest=False)
@@ -86,6 +121,11 @@ def wikipedia_summary(query: str, lang: str = 'en'):
 
 
 def german_summary(query: str) -> str:
+    """
+    Tries to obtain a short german description of given term.
+    :param query: Search term
+    :return: Summary string (empty if nothing found)
+    """
     # try to get the summary from a german wikipedia article
     summary = wikipedia_summary(query, 'de')
     if not summary:
