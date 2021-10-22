@@ -1,10 +1,14 @@
 """
-Implement tests here (and in other files, one for every python module you want to test).
+Tests of the discord bot functionality
 """
+from frog_of_the_week import bot
 
 
-def test_nothing():
+def test_embed():
     """
-    Test function for a method from module mfp_discord_bot.module_name
+    Test if the bot builds a correct embed
+    Todo: This should mock the data service to only test the embed building function!
     """
-    assert True
+    embed = bot.build_embed()
+    assert embed.description
+    assert embed.image
