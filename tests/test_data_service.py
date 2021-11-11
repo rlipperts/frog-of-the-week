@@ -2,7 +2,7 @@
 Tests of the data service which handles various APIs
 These are not exhausting and do not handle every possible case, don't hate me for it.
 """
-import requests
+import requests  # type: ignore
 
 from frog_of_the_week import data_service
 

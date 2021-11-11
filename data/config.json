@@ -1,0 +1,8 @@
+{
+  "command_prefix": "!",
+  "bot_maintainer_name": "Ruben",
+  "test_mode": true,
+  "send_weekday": "wednesday",
+  "message_channel_id": 886275343411982378,
+  "test_message_channel_id": 869956823740993587
+}

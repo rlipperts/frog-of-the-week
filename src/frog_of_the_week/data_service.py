@@ -3,29 +3,18 @@ Module that provides data by interfacing various APIs.
 This should probably be separated into a module for each low level API function and another one for
 the higher-level data interface used by the bot.
 """
-import json
-from pathlib import Path
 
 import random
-import requests
-import wikipedia
-from google_images_search import GoogleImagesSearch
-from deepl import Translator
+import requests  # type: ignore
+import wikipedia  # type: ignore
+from google_images_search import GoogleImagesSearch  # type: ignore
+from deepl import Translator  # type: ignore
 
 from frog_of_the_week.exceptions import MissingApiKeyError
+from frog_of_the_week.util import load_keys
 
 
-def load_keys(path: Path):
-    """
-    Loads authentification keys/tokens.
-    :param path: JSON file to load the keys from
-    :return: Dictionary containing the key-file information
-    """
-    with open(path, mode='r', encoding='utf8') as file:
-        return json.load(file)
-
-
-KEYS = load_keys(Path('data/keys.json'))
+KEYS = load_keys()
 GET_A_FROG_API_CALL = \
     'https://api.gbif.org/v1/species/search/?highertaxon_key=952&limit=1&rank=SPECIES&offset='
 
