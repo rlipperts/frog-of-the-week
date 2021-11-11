@@ -28,5 +28,5 @@ _To use the bot you have to host it on a server and then add it ot your Discord 
    ```
 3. Execute the container
    ```
-   docker run frog-of-the-week-discord-bot
+   docker run -d frog-of-the-week-discord-bot
    ```
