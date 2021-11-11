@@ -13,6 +13,20 @@ pip install git+ssh://git@github.com/rlipperts/python_package_template.git
 
 ## usage
 
-To use the bot you have to host it on a server and then add it ot your Discord server.
+_To use the bot you have to host it on a server and then add it ot your Discord server._
 
-TODO
+### setup the bot on with docker
+
+1. Clone the GitHub repository onto your server
+   ```
+   git clone git@github.com:rlipperts/frog-of-the-week.git
+   ```
+2. Build the docker image
+   ```
+   cd frog-of-the-week
+   docker build -t frog-of-the-week-discord-bot .
+   ```
+3. Execute the container
+   ```
+   docker run frog-of-the-week-discord-bot
+   ```

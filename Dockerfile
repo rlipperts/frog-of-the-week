@@ -6,4 +6,4 @@ COPY . .
 RUN pip3 install -r requirements.txt
 RUN pip3 install .
 
-CMD [ "python3", "-m", "scripts/run.py"]
+CMD [ "python3", "scripts/run.py"]
